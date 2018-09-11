@@ -7,4 +7,5 @@
     <dimen name="onehundredfiftydp">150dp</dimen>
     <dimen name="twentysp">20sp</dimen>
     <dimen name="fivedp">5dp</dimen>
+    <dimen name="tendp">10dp</dimen>
 </resources>
