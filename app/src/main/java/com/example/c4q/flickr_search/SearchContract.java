@@ -10,15 +10,16 @@ import java.util.List;
 
 public interface SearchContract {
     interface View{
+        void setAppBarTitle();
         void showUserRV(List<Photo> photoList);
         void showNetworkErrorMsg();
         void showNoResponseMsg();
     }
 
     interface Presenter{
-        void startNetworkCall();
-        void getPhotos();
-        void showSavedlist();
+        void networkCall();
+        void showSavedList();
+        List<Photo> getPhotoList();
 
     }
 }

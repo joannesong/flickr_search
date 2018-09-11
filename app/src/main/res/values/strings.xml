@@ -4,4 +4,6 @@
     <string name="network_error_retry">Retry</string>
     <string name="network_error_closeapp">Close App</string>
     <string name="no_photos_found">No photos found</string>
+    <string name="search_appbar_title">Flickr</string>
+    <string name="Flickr">Flickr</string>
 </resources>

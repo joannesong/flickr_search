@@ -2,6 +2,8 @@ package com.example.c4q.flickr_search;
 
 import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.os.Parcelable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +20,7 @@ import com.example.c4q.flickr_search.model.Photo;
 import com.example.c4q.flickr_search.net.RetrofitInstance;
 import com.example.c4q.flickr_search.rv.FlickrAdapter;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,9 +41,9 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     TextView emptyResponseText;
 
     private String searchTerm;
-    private List<Photo> responsePhotoList;
     private FlickrAdapter flickrAdapter = new FlickrAdapter();
     private SearchPresenter presenter;
+
     private static final String PHOTO_LIST_SAVED_TO_BUNDLE = "rotated_list";
 
     @Override
@@ -49,6 +51,8 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+
+        setAppBarTitle();
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,13 +60,12 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
                 setNetwork();
             }
         });
-
     }
 
     private void setNetwork() {
         if(!searchTerm.isEmpty()){
             presenter = new SearchPresenter(this, new RetrofitInstance(), searchTerm);
-            presenter.startNetworkCall();
+            presenter.networkCall();
         }
         else{
             Toast.makeText(this, "Empty Search. Try Again.", Toast.LENGTH_LONG).show();
@@ -71,10 +74,16 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(PHOTO_LIST_SAVED_TO_BUNDLE, (Serializable) responsePhotoList);
         super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(PHOTO_LIST_SAVED_TO_BUNDLE, (ArrayList<? extends Parcelable>) presenter.getPhotoList());
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        presenter = new SearchPresenter(this, savedInstanceState.<Photo>getParcelableArrayList(PHOTO_LIST_SAVED_TO_BUNDLE));
+        presenter.showSavedList();
+    }
 
     private void setOrientation() {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -91,6 +100,13 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     }
 
     @Override
+    public void setAppBarTitle() {
+        ActionBar actionBar = getSupportActionBar();
+        String title = getResources().getString(R.string.search_appbar_title);
+        actionBar.setTitle(title);
+    }
+
+    @Override
     public void showUserRV(List<Photo> responsePhotoList) {
         if(searchRecyclerView.getVisibility() == View.INVISIBLE){
             searchRecyclerView.setVisibility(View.VISIBLE);
@@ -100,7 +116,6 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         setOrientation();
         flickrAdapter.addPhotos(responsePhotoList);
         searchRecyclerView.setAdapter(flickrAdapter);
-
     }
 
     @Override
@@ -109,7 +124,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         builder.setMessage(R.string.network_error_message);
         builder.setPositiveButton(R.string.network_error_retry, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                presenter.startNetworkCall();
+                presenter.networkCall();
             }
         });
         builder.setNegativeButton(R.string.network_error_closeapp, new DialogInterface.OnClickListener() {

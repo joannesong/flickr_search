@@ -14,6 +14,7 @@
         android:layout_marginLeft="@dimen/eightdp"
         android:layout_marginStart="@dimen/eightdp"
         android:layout_marginTop="@dimen/eightdp"
+        android:padding="@dimen/fivedp"
         android:background="@drawable/search_border"
         app:layout_constraintEnd_toStartOf="@+id/search_button"
         app:layout_constraintHorizontal_bias="0.0"

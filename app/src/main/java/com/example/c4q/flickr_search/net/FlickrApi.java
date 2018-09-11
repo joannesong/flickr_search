@@ -17,3 +17,4 @@ public interface FlickrApi {
     @GET("services/rest/?method=flickr.photos.search&api_key=" + API_KEY + "&safe_search=1&format=json&nojsoncallback=1")
     Call<FlickrResponse> getPhotos(@Query("text") String search);
 }
+
