@@ -8,12 +8,12 @@
 
     <ImageView
         android:id="@+id/flickr_image"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="@dimen/zerodp"
+        android:layout_height="@dimen/onehundredfiftydp"
+        android:layout_marginBottom="@dimen/eightdp"
+        android:layout_marginEnd="@dimen/eightdp"
+        android:layout_marginStart="@dimen/eightdp"
+        android:layout_marginTop="@dimen/eightdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">flickr_search</string>
+    <string name="network_error_message">No Internet Connection</string>
+    <string name="network_error_retry">Retry</string>
+    <string name="network_error_closeapp">Close App</string>
+    <string name="no_photos_found">No photos found</string>
 </resources>

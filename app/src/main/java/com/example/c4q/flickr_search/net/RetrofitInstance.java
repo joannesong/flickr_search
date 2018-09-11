@@ -2,8 +2,6 @@ package com.example.c4q.flickr_search.net;
 
 import android.support.annotation.NonNull;
 
-import com.google.gson.Gson;
-
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -22,7 +20,7 @@ public class RetrofitInstance {
                 .build();
     }
     @NonNull
-    public Retrofit get() {
-        return retrofit;
+    public FlickrApi get() {
+        return retrofit.create(FlickrApi.class);
     }
 }

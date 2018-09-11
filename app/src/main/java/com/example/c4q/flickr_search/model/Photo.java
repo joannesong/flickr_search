@@ -1,5 +1,8 @@
 package com.example.c4q.flickr_search.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 public class Photo {
     private int farm;
     private String server, secret, id;
