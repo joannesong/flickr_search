@@ -61,7 +61,6 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
             }
         });
     }
-
     private void setNetwork() {
         if(!searchTerm.isEmpty()){
             presenter = new SearchPresenter(this, new RetrofitInstance(), searchTerm);
@@ -71,7 +70,6 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
             Toast.makeText(this, "Empty Search. Try Again.", Toast.LENGTH_LONG).show();
         }
     }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -134,7 +132,6 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 
     @Override

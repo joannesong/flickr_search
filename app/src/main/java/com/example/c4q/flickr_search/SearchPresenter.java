@@ -21,17 +21,15 @@ public class SearchPresenter implements SearchContract.Presenter {
     private List<Photo> photoList = new ArrayList<>();
     private String searchTerm;
 
-    public SearchPresenter(SearchContract.View view, RetrofitInstance service, String searchTerm) {
+    SearchPresenter(SearchContract.View view, RetrofitInstance service, String searchTerm) {
         this.view = view;
         this.service = service;
         this.searchTerm = searchTerm;
     }
-
-    public SearchPresenter(SearchContract.View view, List<Photo> photoList) {
+    SearchPresenter(SearchContract.View view, List<Photo> photoList) {
         this.view = view;
         this.photoList = photoList;
     }
-
 
     @Override
     public void networkCall() {

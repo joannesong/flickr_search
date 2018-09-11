@@ -8,7 +8,7 @@ import java.util.List;
 public class Photos implements Parcelable {
     private List<Photo> photo;
 
-    protected Photos(Parcel in) {
+    private Photos(Parcel in) {
         photo = in.createTypedArrayList(Photo.CREATOR);
     }
 

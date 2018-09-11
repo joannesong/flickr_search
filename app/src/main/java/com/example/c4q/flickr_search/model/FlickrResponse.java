@@ -10,7 +10,7 @@ import android.os.Parcelable;
 public class FlickrResponse implements Parcelable{
     private Photos photos;
 
-    protected FlickrResponse(Parcel in) {
+    private FlickrResponse(Parcel in) {
         photos = in.readParcelable(Photos.class.getClassLoader());
     }
 

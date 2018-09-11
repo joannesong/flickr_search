@@ -19,13 +19,13 @@ class FlickrViewHolder extends RecyclerView.ViewHolder{
     @BindView(R.id.flickr_image)
     ImageView flickrImage;
 
-    public FlickrViewHolder(View itemView) {
+    FlickrViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
 
     }
 
-    public void bind(Photo photo, int position) {
+    void bind(Photo photo, int position) {
         String imageURL = "https://farm" + photo.getFarm() + ".staticflickr.com/"
                 + photo.getServer() + "/" + photo.getId() + "_" + photo.getSecret() + ".jpg";
 

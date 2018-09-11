@@ -7,14 +7,14 @@ public class Photo implements Parcelable{
     private int farm;
     private String server, secret, id;
 
-    protected Photo(Parcel in) {
+    private Photo(Parcel in) {
         farm = in.readInt();
         server = in.readString();
         secret = in.readString();
         id = in.readString();
     }
 
-    public static final Creator<Photo> CREATOR = new Creator<Photo>() {
+    static final Creator<Photo> CREATOR = new Creator<Photo>() {
         @Override
         public Photo createFromParcel(Parcel in) {
             return new Photo(in);
