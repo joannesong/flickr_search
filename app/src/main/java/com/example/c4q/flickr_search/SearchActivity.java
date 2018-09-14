@@ -39,12 +39,14 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     ImageView emptyResponseImage;
     @BindView(R.id.empty_response_text)
     TextView emptyResponseText;
+    GridLayoutManager gridLayoutManager;
 
     private String searchTerm;
     private FlickrAdapter flickrAdapter = new FlickrAdapter();
     private SearchPresenter presenter;
 
-    private static final String PHOTO_LIST_SAVED_TO_BUNDLE = "rotated_list";
+    private static final String PHOTO_LIST_SAVED_TO_BUNDLE = "rotatedList";
+    private static final String PHOTO_LIST_POSITION = "scrolledPosition";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,13 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(PHOTO_LIST_SAVED_TO_BUNDLE, (ArrayList<? extends Parcelable>) presenter.getPhotoList());
+
+        if(gridLayoutManager != null){
+            int scrollPosition = gridLayoutManager.findFirstVisibleItemPosition();
+            outState.putInt(PHOTO_LIST_POSITION, scrollPosition);
+        }
+
+
     }
 
     @Override
@@ -81,6 +90,10 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         super.onRestoreInstanceState(savedInstanceState);
         presenter = new SearchPresenter(this, savedInstanceState.<Photo>getParcelableArrayList(PHOTO_LIST_SAVED_TO_BUNDLE));
         presenter.showSavedList();
+
+        if(savedInstanceState.containsKey(PHOTO_LIST_POSITION)){
+            gridLayoutManager.scrollToPosition(savedInstanceState.getInt(PHOTO_LIST_POSITION));
+        }
     }
 
     private void setOrientation() {
@@ -92,7 +105,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     }
 
     private void setSpanCount(int spanCount) {
-        GridLayoutManager gridLayoutManager;
+
         gridLayoutManager = new GridLayoutManager(getApplicationContext(), spanCount);
         searchRecyclerView.setLayoutManager(gridLayoutManager);
     }

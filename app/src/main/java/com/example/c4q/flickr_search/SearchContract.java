@@ -22,4 +22,5 @@ public interface SearchContract {
         List<Photo> getPhotoList();
 
     }
+
 }
